@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1fac532a-3b19-4c40-beb5-f4e9914c7a3a" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/components/ui/Button.tsx" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="2.6585964265641966E-10" />
+      <entry key="MS500" value="0.017369471330131253" />
+      <entry key="S2" value="0.7500660560671201" />
+      <entry key="S5" value="1.7047427950852545" />
+      <entry key="S10" value="2.257230633172097" />
+      <entry key="S30" value="2.7274538087720654" />
+      <entry key="S60" value="2.86719892377594" />
+      <entry key="M2" value="3.104609345404187" />
+      <entry key="M5" value="5.679463305871137" />
+      <entry key="M10" value="20.219619705045325" />
+      <entry key="M15" value="41.461788500297295" />
+      <entry key="M30" value="99.51554713365958" />
+      <entry key="H1" value="164.91416183186274" />
+      <entry key="H2" value="216.8136375714721" />
+      <entry key="H4" value="250.16174226236248" />
+      <entry key="D1" value="282.8469351889899" />
+      <entry key="W1" value="288.9646346761882" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.0000070204746294" />
+      <entry key="MS500" value="1.0931693991749325" />
+      <entry key="S2" value="1.5524822423999558" />
+      <entry key="S5" value="1.7887281286624743" />
+      <entry key="S10" value="1.888103669997188" />
+      <entry key="S30" value="1.961216509728239" />
+      <entry key="S60" value="1.980416536817747" />
+      <entry key="M2" value="1.9906643812964768" />
+      <entry key="M5" value="2.234711894644954" />
+      <entry key="M10" value="4.367907268623641" />
+      <entry key="M15" value="7.5953044989294485" />
+      <entry key="M30" value="16.7258795623316" />
+      <entry key="H1" value="27.588390924155334" />
+      <entry key="H2" value="36.63689143392485" />
+      <entry key="H4" value="42.641519859680166" />
+      <entry key="D1" value="48.66436373899998" />
+      <entry key="W1" value="49.806291402994276" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.013322423126684645" />
+      <entry key="MS500" value="0.45365425597529385" />
+      <entry key="S2" value="1.8048877693073995" />
+      <entry key="S5" value="3.164692909780689" />
+      <entry key="S10" value="3.944824938354786" />
+      <entry key="S30" value="4.6117024531678625" />
+      <entry key="S60" value="4.807635911808944" />
+      <entry key="M2" value="5.07407237974473" />
+      <entry key="M5" value="7.900427348946808" />
+      <entry key="M10" value="24.564570976642635" />
+      <entry key="M15" value="49.025967448132405" />
+      <entry key="M30" value="116.20417904270603" />
+      <entry key="H1" value="192.47150253399874" />
+      <entry key="H2" value="253.42994246346018" />
+      <entry key="H4" value="292.7913070171407" />
+      <entry key="D1" value="331.5090301896992" />
+      <entry key="W1" value="338.7705945122137" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3IjgWLfMQcK6zVhTLlP6R6u9vMA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "javascript.preferred.runtime.type.id": "node",
+    "junie.onboarding.icon.badge.shown": "true",
+    "junie.plugin.stays.banner.dismissed": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editing.templates",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "/Users/danygarza/Desktop/projects/roomify/node_modules/typescript/lib"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-WS-262.9437.145" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1fac532a-3b19-4c40-beb5-f4e9914c7a3a" name="Changes" comment="" />
+      <created>1788067044853</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1788067044853</updated>
+      <workItem from="1788067046429" duration="27000" />
+      <workItem from="1788067088598" duration="6000" />
+      <workItem from="1788283423126" duration="9006000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
