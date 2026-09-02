@@ -4,6 +4,7 @@ import {ArrowRight, ArrowUpRight, Clock, Layers} from "lucide-react";
 import Button from "../../components/ui/Button";
 import Upload from "../../components/Upload";
 import {useNavigate} from "react-router";
+import puter from "@heyputer/puter.js";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -17,6 +18,7 @@ export default function Home() {
 
     const handleUploadComplete = async (base64Image: string) => {
         const newId = Date.now().toString();
+        await puter.kv.set(newId, base64Image);
         navigate(`/visualizer/${newId}`);
         return true;
     }

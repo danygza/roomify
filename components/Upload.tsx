@@ -13,8 +13,26 @@ const Upload = ({ onComplete }: UploadProps) => {
     const [progress, setProgress] = useState(0);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const base64Ref = useRef<string | null>(null);
 
     const { isSignedIn } = useOutletContext<AuthContext>();
+
+    useEffect(() => {
+        if (progress >= 100) {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+                intervalRef.current = null;
+            }
+            if (!timeoutRef.current) {
+                timeoutRef.current = setTimeout(() => {
+                    if (base64Ref.current) {
+                        onComplete?.(base64Ref.current);
+                    }
+                    timeoutRef.current = null;
+                }, REDIRECT_DELAY_MS);
+            }
+        }
+    }, [progress, onComplete]);
 
     useEffect(() => {
         return () => {
@@ -34,27 +52,22 @@ const Upload = ({ onComplete }: UploadProps) => {
 
         setFile(file);
         setProgress(0);
+        base64Ref.current = null;
 
         const reader = new FileReader();
         reader.onerror = () => {
             setFile(null);
             setProgress(0);
+            base64Ref.current = null;
         };
-        reader.onloadend = () => {
-            const base64Data = reader.result as string;
+        reader.onload = () => {
+            if (typeof reader.result !== 'string') return;
+            base64Ref.current = reader.result;
 
             intervalRef.current = setInterval(() => {
                 setProgress((prev) => {
                     const next = prev + PROGRESS_INCREMENT;
                     if (next >= 100) {
-                        if (intervalRef.current) {
-                            clearInterval(intervalRef.current);
-                            intervalRef.current = null;
-                        }
-                        timeoutRef.current = setTimeout(() => {
-                            onComplete?.(base64Data);
-                            timeoutRef.current = null;
-                        }, REDIRECT_DELAY_MS);
                         return 100;
                     }
                     return next;
@@ -62,7 +75,7 @@ const Upload = ({ onComplete }: UploadProps) => {
             }, PROGRESS_INTERVAL_MS);
         };
         reader.readAsDataURL(file);
-    }, [isSignedIn, onComplete]);
+    }, [isSignedIn]);
 
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();
