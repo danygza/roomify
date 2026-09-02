@@ -1,42 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import puter from '@heyputer/puter.js';
+import { useLocation, useParams } from "react-router";
+import puter from "@heyputer/puter.js";
 
 const VisualizerId = () => {
     const { id } = useParams<{ id: string }>();
-    const [image, setImage] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
+    const location = useLocation();
+    const { initialImage: stateImage, name: stateName } = (location.state as { initialImage?: string; name?: string } | null) || {};
+
+    const [storedProject, setStoredProject] = useState<{ sourceImage?: string; name?: string } | null>(null);
 
     useEffect(() => {
-        const fetchImage = async () => {
-            if (!id) return;
-            try {
-                const data = await puter.kv.get(id);
-                if (data) {
-                    setImage(data as string);
+        if (!stateImage && id) {
+            const loadProject = async () => {
+                try {
+                    const stored = await puter.kv.get(id);
+                    if (stored) {
+                        if (typeof stored === 'string') {
+                            try {
+                                setStoredProject(JSON.parse(stored));
+                            } catch {
+                                setStoredProject({ sourceImage: stored });
+                            }
+                        } else if (typeof stored === 'object') {
+                            setStoredProject(stored as { sourceImage?: string; name?: string });
+                        }
+                    }
+                } catch (error) {
+                    console.error("Failed to load project:", error);
                 }
-            } catch (error) {
-                console.error("Failed to load image:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+            };
 
-        fetchImage();
-    }, [id]);
+            loadProject();
+        }
+    }, [id, stateImage]);
 
-    if (loading) {
-        return <div className="visualizer-route loading">Loading...</div>;
-    }
+    const initialImage = stateImage || storedProject?.sourceImage;
+    const name = stateName || storedProject?.name;
 
     return (
-        <div className="visualizer-route">
-            {image ? (
-                <img src={image} alt="Visualizer" className="max-w-full max-h-screen object-contain" />
-            ) : (
-                <p>Image not found</p>
-            )}
-        </div>
+        <section>
+            <h1>{name || 'Untitled Project'}</h1>
+            <div className="visualizer">
+                {initialImage && (
+                    <div className="image-container">
+                        <h2>Source Image</h2>
+                        <img src={initialImage} alt="Source" />
+                    </div>
+                )}
+            </div>
+        </section>
     );
 };
 
