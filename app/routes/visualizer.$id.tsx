@@ -1,43 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import puter from '@heyputer/puter.js';
+import React from 'react';
+import {useLocation} from "react-router";
 
 const VisualizerId = () => {
-    const { id } = useParams<{ id: string }>();
-    const [image, setImage] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-
-    useEffect(() => {
-        const fetchImage = async () => {
-            if (!id) return;
-            try {
-                const data = await puter.kv.get(id);
-                if (data) {
-                    setImage(data as string);
-                }
-            } catch (error) {
-                console.error("Failed to load image:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchImage();
-    }, [id]);
-
-    if (loading) {
-        return <div className="visualizer-route loading">Loading...</div>;
-    }
+    const location = useLocation();
+    const {initialImage, name} = location.state || {};
 
     return (
-        <div className="visualizer-route">
-            {image ? (
-                <img src={image} alt="Visualizer" className="max-w-full max-h-screen object-contain" />
-            ) : (
-                <p>Image not found</p>
-            )}
-        </div>
-    );
-};
+        <section>
+            <h1>{name || 'Imtitled Project'}</h1>
+            <div className="visualizer">
+                {initialImage && (
+                    <div className="image-container">
+                        <h2>Source Image</h2>
+                        <img src={initialImage} alt="Source" />
+                    </div>
+                )}
+            </div>
+        </section>
+    )
+}
 
-export default VisualizerId;
+export default VisualizerId
