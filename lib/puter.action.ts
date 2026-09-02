@@ -55,6 +55,7 @@ export const createProject = async ({item}: CreateProjectParams): Promise<Design
 
     try {
         // Call the Puter worker to store project in kv
+        await puter.kv.set(projectId, payload);
         return payload;
     } catch (e) {
         console.log('Failed to save project', e)
