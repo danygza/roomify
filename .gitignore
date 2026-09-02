@@ -5,3 +5,6 @@
 # React Router
 /.react-router/
 /build/
+
+# IntelliJ IDEA
+.idea/workspace.xml
