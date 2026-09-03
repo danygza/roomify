@@ -62,3 +62,27 @@ export const createProject = async ({item}: CreateProjectParams): Promise<Design
         return null;
     }
 }
+
+export const getProjects = async (): Promise<DesignItem[]> => {
+    try {
+        const items = (await puter.kv.list(true)) as { key: string; value: unknown }[];
+        if (!items || !Array.isArray(items)) return [];
+        return items
+            .map((entry) => {
+                let val = entry?.value !== undefined ? entry.value : entry;
+                if (typeof val === 'string') {
+                    try {
+                        val = JSON.parse(val);
+                    } catch {
+                        return null;
+                    }
+                }
+                return val as DesignItem;
+            })
+            .filter((p): p is DesignItem => Boolean(p && typeof p === 'object' && p.id && (p.sourceImage || p.renderedImage)))
+            .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+    } catch (e) {
+        console.error('Failed to get projects', e);
+        return [];
+    }
+}
