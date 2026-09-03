@@ -1,11 +1,13 @@
 import {useEffect, useRef, useState} from "react";
-import {useLocation, useNavigate} from "react-router";
+import {useLocation, useNavigate, useParams} from "react-router";
 import {generate3DView} from "../../lib/ai.action";
+import {createProject} from "../../lib/puter.action";
 import Navbar from "../../components/Navbar";
 import {Box, Download, RefreshCcw, Share2, X} from "lucide-react";
 import Button from "../../components/ui/Button";
 
 const VisualizerId = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
     const { initialImage, initialRender, name } = location.state || {};
@@ -23,9 +25,18 @@ const VisualizerId = () => {
             setIsProcessing(true);
             const result = await generate3DView({ sourceImage: initialImage});
             if (result.renderedImage) {
+                if (id) {
+                    await createProject({
+                        item: {
+                            id,
+                            name: name || `Residence ${id}`,
+                            sourceImage: initialImage,
+                            renderedImage: result.renderedImage,
+                            timestamp: Date.now(),
+                        },
+                    });
+                }
                 setCurrentImage(result.renderedImage);
-
-                //update the project with the rendered image
             }
         } catch (error) {
             console.error('Generation failed:', error);
@@ -62,7 +73,7 @@ const VisualizerId = () => {
                     <div className="panel-header">
                         <div className="panel-meta">
                             <p>Project</p>
-                            <h2>{'Untitled Project'}</h2>
+                            <h2>{name || 'Untitled Project'}</h2>
                             <p className="note">Created by You</p>
                         </div>
                         <div className="panel-actions">

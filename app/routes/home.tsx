@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar";
 import {ArrowRight, ArrowUpRight, Clock, Layers} from "lucide-react";
 import Button from "../../components/ui/Button";
 import Upload from "../../components/Upload";
-import {useNavigate} from "react-router";
+import {Link, useNavigate} from "react-router";
 import {useEffect, useState} from "react";
 import {createProject, getProjects} from "../../lib/puter.action";
 
@@ -69,7 +69,7 @@ export default function Home() {
             navigate(`/visualizer/${newId}`, {
                 state: {
                     initialImage: saved.sourceImage,
-                    initialRendered: saved.renderedImage,
+                    initialRender: saved.renderedImage,
                     name
                 }
             });
@@ -138,16 +138,15 @@ export default function Home() {
                         {projects.map(({id, name, renderedImage, sourceImage, timestamp, isPublic, sharedBy, ownerId}) => {
                             const owner = sharedBy || ownerId;
                             return (
-                                <div
+                                <Link
                                     key={id}
+                                    to={`/visualizer/${id}`}
+                                    state={{
+                                        initialImage: sourceImage,
+                                        initialRender: renderedImage,
+                                        name
+                                    }}
                                     className="project-card group"
-                                    onClick={() => navigate(`/visualizer/${id}`, {
-                                        state: {
-                                            initialImage: sourceImage,
-                                            initialRendered: renderedImage,
-                                            name
-                                        }
-                                    })}
                                 >
                                     <div className="preview">
                                         <img
@@ -171,7 +170,7 @@ export default function Home() {
                                             <ArrowUpRight size={18}/>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             );
                         })}
                     </div>
