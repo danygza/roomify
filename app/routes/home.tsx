@@ -4,8 +4,8 @@ import {ArrowRight, ArrowUpRight, Clock, Layers} from "lucide-react";
 import Button from "../../components/ui/Button";
 import Upload from "../../components/Upload";
 import {useNavigate} from "react-router";
-import {useState} from "react";
-import {createProject} from "../../lib/puter.action";
+import {useEffect, useState} from "react";
+import {createProject, getProjects} from "../../lib/puter.action";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -19,6 +19,31 @@ export default function Home() {
     const [projects, setProjects] = useState<DesignItem[]>([]);
     const [uploadError, setUploadError] = useState<string | null>(null);
     const [uploadKey, setUploadKey] = useState(0);
+    const [loadingProjects, setLoadingProjects] = useState(true);
+
+    useEffect(() => {
+        let isMounted = true;
+        const fetchProjects = async () => {
+            try {
+                const data = await getProjects();
+                if (isMounted) {
+                    setProjects(data);
+                }
+            } catch (error) {
+                console.error("Failed to load projects:", error);
+            } finally {
+                if (isMounted) {
+                    setLoadingProjects(false);
+                }
+            }
+        };
+
+        fetchProjects();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     const handleUploadComplete = async (base64Image: string) => {
         try {
@@ -99,11 +124,31 @@ export default function Home() {
                             <p>Your latest work and shared community projects, all in one place.</p>
                         </div>
                     </div>
+                    {loadingProjects && (
+                        <div className="loading">
+                            <p>Loading projects...</p>
+                        </div>
+                    )}
                     <div className="projects-grid">
+                        {!loadingProjects && projects.length === 0 && (
+                            <div className="empty">
+                                <p>No projects yet. Upload a floor plan to get started!</p>
+                            </div>
+                        )}
                         {projects.map(({id, name, renderedImage, sourceImage, timestamp, isPublic, sharedBy, ownerId}) => {
                             const owner = sharedBy || ownerId;
                             return (
-                                <div key={id} className="project-card group">
+                                <div
+                                    key={id}
+                                    className="project-card group"
+                                    onClick={() => navigate(`/visualizer/${id}`, {
+                                        state: {
+                                            initialImage: sourceImage,
+                                            initialRendered: renderedImage,
+                                            name
+                                        }
+                                    })}
+                                >
                                     <div className="preview">
                                         <img
                                             src={renderedImage || sourceImage} alt={"Project"} />
